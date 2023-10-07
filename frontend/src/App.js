@@ -1,4 +1,7 @@
-import logo from './logo.svg';
+import Home from './pages/home/home';
+import MyAlbum from './pages/story/story';
+import { BrowserRouter as Router, Routes, Route }
+    from 'react-router-dom';
 import './App.css';
 
 const Config = {
@@ -23,22 +26,12 @@ fetch(`${API_ADDRESS}/test`).then((res) => {
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+            <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/about' element={<MyAlbum />} />
+            </Routes>
+      </Router>
   );
 }
 
