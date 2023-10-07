@@ -1,5 +1,6 @@
 import HTMLFlipBook from "react-pageflip";
-import React, { useState } from "react";
+import React, { useState, useCallback, useRef } from "react";
+import TextToSpeech from "../../componenets/TextToSpeech";
 import "./story.css";
 
 const PageCover = React.forwardRef((props, ref) => {
@@ -22,7 +23,25 @@ const Page = React.forwardRef((props, ref) => {
   );
 });
 
+
 function MyAlbum(props) {
+  const [text, setText] = useState(props.story[0]);
+  const book = useRef();
+
+  const onFlip = useCallback((e) => {
+    console.log('Current page: ' + e.data);
+    // if page is more than cover page
+    if (e.data > 0 && e.data + 1 < props.story.length) {
+      setText(props.story[e.data] + " " + props.story[e.data+1])
+    } else {
+      setText(props.story[e.data])
+    }
+  });
+
+  function speakingDone(e) {
+    console.log(e)
+    book.current.pageFlip().flipNext()
+  }
 
   return (
     <body>
@@ -35,32 +54,36 @@ function MyAlbum(props) {
           minHeight={420}
           maxHeight={1350}
           showCover={true}
-          
+          onFlip={onFlip}
           flippingTime={1000}
           style={{ margin: "0 auto" }}
           maxShadowOpacity={0.5}
           className="album-web"
+          ref={book}
         >
-          <PageCover>try</PageCover>
-          <PageCover></PageCover>
-          <Page number="1">
-            <hr></hr>
-          </Page>
-          <Page number="2">
-            <hr></hr>
-          </Page>
-          <Page number="3">
-            <hr></hr>
-          </Page>
-          <Page number="4">
-            <hr></hr>
-          </Page>
-          <PageCover></PageCover>
-          <PageCover>see you</PageCover>
+          {props.story.map(function(content, index) {
+            if(index === 0) {
+              return (
+                <PageCover>{content}</PageCover>
+              )
+            } else if(index === props.story.length-1) {
+              return (
+                <PageCover>{content}</PageCover>
+              )
+            } else {
+              return (
+                <Page number={index}>
+                  <hr></hr>
+                  {content}
+                </Page>
+              )
+            }
+          })}
         </HTMLFlipBook>
         <br></br>
         <br></br>
       </div>
+      <div className="formContainer"><TextToSpeech text={text} endHandler={speakingDone}/></div>
     </body>
   );
 }

@@ -29,7 +29,7 @@ function App() {
       <Router>
             <Routes>
                 <Route path='/' element={<Home />} />
-                <Route path='/about' element={<MyAlbum />} />
+                <Route path='/about' element={<MyAlbum story={["coverPage","page1", "page2", "page3", "page4", "backPage"]}/>} />
             </Routes>
       </Router>
   );
