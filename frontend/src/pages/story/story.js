@@ -4,6 +4,7 @@ import MediaControls from "../../componenets/multiMedia/MultiMedia";
 import "./story.css";
 import { getStory } from "../../lib/story_api";
 import { useLocation } from 'react-router-dom';
+import "./stars.css";
 
 const PageCover = React.forwardRef((props, ref) => {
   return (
@@ -93,6 +94,8 @@ function MyAlbum(props) {
 
   return (
     <div className="bookContainer">
+      <div className="stars"></div>
+      <div className="clouds"></div>
       <div style={{paddingTop:'20px'}}>
         <HTMLFlipBook
           width={550}
