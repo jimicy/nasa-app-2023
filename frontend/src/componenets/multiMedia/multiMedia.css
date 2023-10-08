@@ -1,0 +1,30 @@
+.audio-player {
+    height: 50px;
+    background: white;
+    box-shadow: 0 0 20px 0 #000a;
+    font-family: arial;
+    color: black;
+    font-size: 0.75em;
+    overflow: hidden;
+    display: table-row;
+    grid-template-rows: 6px auto;
+  }
+
+  .audio-player .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 0 20px;
+  }
+  .audio-player .controls > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+
+
+
+
+  

@@ -1,5 +1,6 @@
 import HTMLFlipBook from "react-pageflip";
 import React, { useState, useCallback, useRef } from "react";
+import MediaControls from "../../componenets/multiMedia/multiMedia";
 import "./story.css";
 
 const PageCover = React.forwardRef((props, ref) => {
@@ -24,18 +25,32 @@ const Page = React.forwardRef((props, ref) => {
 
 
 function MyAlbum(props) {
-  const book = useRef();
+  const book = useRef()
+  const audio = useRef()
   const [audioStreamIndex, setAudioStreamIndex] = useState(0)
   const [autoPlay, setAutoPlay] = useState(false)
+  const [duration, setDuration] = useState(0);
 
   const onFlip = useCallback((e) => {
-    console.log('Current page: ' + e.data);
     // set audio to start of new page
     setAudioStreamIndex(e.data)
   });
 
+  const onLoadedMetadata = () => {
+    const seconds = audio.current.duration;
+    setDuration(seconds);
+  };
+
   function onPlay(e) {
     setAutoPlay(true)
+  }
+
+  function flipForward() {
+    book.current.pageFlip().flipNext();
+  }
+
+  function flipBackward() {
+    book.current.pageFlip().flipPrev();
   }
 
   function onPause(e) {
@@ -46,10 +61,10 @@ function MyAlbum(props) {
     var currentPageFinished = book.current.pageFlip().getCurrentPageIndex();
     //page zero is cover so no page spread just flip over
     if (currentPageFinished == 0) {
-      book.current.pageFlip().flipNext();
+      flipForward();
       //if audio has gone ahead of shown pages then its time to flip
     } else if (audioStreamIndex > currentPageFinished) {
-      book.current.pageFlip().flipNext()
+      flipForward();
     } else if(currentPageFinished + 1 < props.story.length) {
       // if page is not cover or back then there is page spread
       // set audio stream to the spread page
@@ -99,9 +114,10 @@ function MyAlbum(props) {
         <br></br>
       </div>
       <div className="formContainer">
-        <audio controls src={props.audio[audioStreamIndex]} onEnded={speakingDone} onPlay={onPlay} onPause={onPause} autoPlay={autoPlay}>
+        <audio onLoadedMetadata={onLoadedMetadata} src={props.audio[audioStreamIndex]} onEnded={speakingDone} onPlay={onPlay} onPause={onPause} autoPlay={autoPlay} ref={audio}>
           Your browser does not support the audio element.
         </audio>
+        <MediaControls audioRef={audio} duration={duration} forward={flipForward} back={flipBackward} readingIndex={audioStreamIndex} total={props.audio.length-1}></MediaControls>
       </div>
     </body>
   );
