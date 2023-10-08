@@ -1,7 +1,6 @@
 import HTMLFlipBook from "react-pageflip";
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import "./story.css";
-import { getStory } from "../../lib/story_api";
 
 const PageCover = React.forwardRef((props, ref) => {
   return (
@@ -23,36 +22,24 @@ const Page = React.forwardRef((props, ref) => {
   );
 });
 
+
 function MyAlbum(props) {
   const book = useRef();
-  const [audioStreamIndex, setAudioStreamIndex] = useState(0);
-  const [autoPlay, setAutoPlay] = useState(false);
-
-  const [storyData, setStoryData] = useState(null);
-
-  useEffect(() => {
-    getStory(1).then((data) => {
-      console.log(`useEffect storyData`, data);
-      setStoryData(data);
-    });
-  }, []);
+  const [audioStreamIndex, setAudioStreamIndex] = useState(0)
+  const [autoPlay, setAutoPlay] = useState(false)
 
   const onFlip = useCallback((e) => {
-    console.log("Current page: " + e.data);
+    console.log('Current page: ' + e.data);
     // set audio to start of new page
-    setAudioStreamIndex(e.data);
+    setAudioStreamIndex(e.data)
   });
 
-  if (storyData === null) {
-    return null;
-  }
-
   function onPlay(e) {
-    setAutoPlay(true);
+    setAutoPlay(true)
   }
 
   function onPause(e) {
-    setAutoPlay(false);
+    setAutoPlay(false)
   }
 
   function speakingDone(e) {
@@ -62,13 +49,13 @@ function MyAlbum(props) {
       book.current.pageFlip().flipNext();
       //if audio has gone ahead of shown pages then its time to flip
     } else if (audioStreamIndex > currentPageFinished) {
-      book.current.pageFlip().flipNext();
-    } else if (currentPageFinished + 1 < props.story.length) {
+      book.current.pageFlip().flipNext()
+    } else if(currentPageFinished + 1 < props.story.length) {
       // if page is not cover or back then there is page spread
       // set audio stream to the spread page
-      setAudioStreamIndex(currentPageFinished + 1);
+      setAudioStreamIndex(currentPageFinished + 1)
     }
-    setAutoPlay(true);
+    setAutoPlay(true)
   }
 
   return (
@@ -89,18 +76,22 @@ function MyAlbum(props) {
           className="album-web"
           ref={book}
         >
-          {props.story.map(function (content, index) {
-            if (index === 0) {
-              return <PageCover>{content}</PageCover>;
-            } else if (index === props.story.length - 1) {
-              return <PageCover>{content}</PageCover>;
+          {props.story.map(function(content, index) {
+            if(index === 0) {
+              return (
+                <PageCover>{content}</PageCover>
+              )
+            } else if(index === props.story.length-1) {
+              return (
+                <PageCover>{content}</PageCover>
+              )
             } else {
               return (
                 <Page number={index}>
                   <hr></hr>
                   {content}
                 </Page>
-              );
+              )
             }
           })}
         </HTMLFlipBook>
@@ -108,14 +99,7 @@ function MyAlbum(props) {
         <br></br>
       </div>
       <div className="formContainer">
-        <audio
-          controls
-          src={props.audio[audioStreamIndex]}
-          onEnded={speakingDone}
-          onPlay={onPlay}
-          onPause={onPause}
-          autoPlay={autoPlay}
-        >
+        <audio controls src={props.audio[audioStreamIndex]} onEnded={speakingDone} onPlay={onPlay} onPause={onPause} autoPlay={autoPlay}>
           Your browser does not support the audio element.
         </audio>
       </div>
