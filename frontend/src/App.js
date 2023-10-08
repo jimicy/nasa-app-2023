@@ -1,38 +1,32 @@
 import Home from './pages/home/home';
 import MyAlbum from './pages/story/story';
-import { BrowserRouter as Router, Routes, Route }
-    from 'react-router-dom';
-import './App.css';
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import "./App.css";
+import { MainNav } from "./componenets/Nav";
 
-const Config = {
-  API_ADDRESS: "http://localhost:5000/api",
-  WEB_ADDRESS: "http://localhost:5000",
-};
-
-// eslint-disable-next-line no-restricted-globals
-const ORIGIN_URL = new URL(location.origin);
-if (ORIGIN_URL.port === "3000") {
-  ORIGIN_URL.port = "5000";
-}
-export const API_ADDRESS = `${ORIGIN_URL.toString()}api`;
-
-// eslint-disable-next-line no-restricted-globals
-export const PUBLIC_URL = location.origin;
-
-// Make a test API call to ensure the API is running
-fetch(`${API_ADDRESS}/test`).then((res) => {
-  console.log("GET /api/test returned", res);
-});
-
-function App() {
-  return (
-      <Router>
-            <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/story' element={<MyAlbum/>} />
-            </Routes>
-      </Router>
+const App = (props) => {
+  const navAndPage = (page) => (
+    <>
+      <MainNav />
+      {page}
+    </>
   );
-}
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: navAndPage(<Home />),
+    },
+    {
+      path: "/story",
+      element: navAndPage(<MyAlbum />),
+    },
+  ]);
+
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
+};
 export default App;
