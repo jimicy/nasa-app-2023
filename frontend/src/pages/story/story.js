@@ -7,7 +7,7 @@ import { getStory } from "../../lib/story_api";
 const PageCover = React.forwardRef((props, ref) => {
   return (
     <div className="cover" ref={ref} data-density="hard">
-      <div>
+      <div style={{backgroundImage: `url(${props.image})`, height: '100%', backgroundSize: 'cover', paddingTop: '1px'}}>
         <h2>{props.children}</h2>
       </div>
     </div>
@@ -17,9 +17,12 @@ const PageCover = React.forwardRef((props, ref) => {
 const Page = React.forwardRef((props, ref) => {
   return (
     <div className="page" ref={ref}>
-      <h1>Page Header</h1>
-      <p>{props.children}</p>
-      <p>{props.number}</p>
+      <div style={{backgroundImage: `url(${props.image.url})`, height: '50%', backgroundSize: 'cover', paddingTop: '1px'}}>
+        <div className="pageNumber">
+          {props.number}
+        </div>
+      </div>
+      <p style={{margin:'10px'}}>{props.children}</p>
     </div>
   );
 });
@@ -87,7 +90,7 @@ function MyAlbum(props) {
   }
 
   return (
-    <body>
+    <body style={{paddingTop: '20px'}}>
       <div>
         <HTMLFlipBook
           width={550}
@@ -104,20 +107,17 @@ function MyAlbum(props) {
           className="album-web"
           ref={book}
         >
-          {props.story.map(function (content, index) {
-            if (index === 0) {
-              return <PageCover>{content}</PageCover>;
-            } else if (index === props.story.length - 1) {
-              return <PageCover>{content}</PageCover>;
-            } else {
+          <PageCover image={storyData.cover_image_url}>{storyData.title}</PageCover>
+          {storyData.pages.map(function (page, index) {
+
               return (
-                <Page number={index}>
-                  <hr></hr>
-                  {content}
+                <Page number={index} image={page.story_page_image[0]}>
+                  {page.text}
                 </Page>
               );
-            }
+          
           })}
+          <PageCover/>
         </HTMLFlipBook>
         <br></br>
         <br></br>
@@ -125,7 +125,7 @@ function MyAlbum(props) {
       <div className="formContainer">
         <audio
           onLoadedMetadata={onLoadedMetadata}
-          src={props.audio[audioStreamIndex]}
+          src={storyData.pages[audioStreamIndex].story_page_audio.url}
           onEnded={speakingDone}
           onPlay={onPlay}
           onPause={onPause}
@@ -140,7 +140,7 @@ function MyAlbum(props) {
           forward={flipForward}
           back={flipBackward}
           readingIndex={audioStreamIndex}
-          total={props.audio.length - 1}
+          total={storyData.pages.length - 1}
         ></MediaControls>
       </div>
     </body>
