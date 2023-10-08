@@ -20,11 +20,16 @@
   height: 25px;
   margin: 10px;
   text-align: center;
-  background-color: rgb(185, 185, 184);
+  background-color: rgb(185, 185, 184, 0.7);
+
+  .right {
+    float: right;
+  }
 }
 
 .bookContainer {
-  height: 100vh;
   background-color: #282c34;
+  background:#000 url(stars.png) repeat top center;
+  background-size: cover;
 }
   
