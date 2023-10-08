@@ -1,7 +1,8 @@
 import HTMLFlipBook from "react-pageflip";
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import MediaControls from "../../componenets/multiMedia/multiMedia";
 import "./story.css";
+import { getStory } from "../../lib/story_api";
 
 const PageCover = React.forwardRef((props, ref) => {
   return (
@@ -29,6 +30,15 @@ function MyAlbum(props) {
   const [audioStreamIndex, setAudioStreamIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(false);
   const [duration, setDuration] = useState(0);
+
+  const [storyData, setStoryData] = useState(null);
+
+  useEffect(() => {
+    getStory(1).then((data) => {
+      console.log(`useEffect storyData`, data);
+      setStoryData(data);
+    });
+  }, []);
 
   const onFlip = useCallback((e) => {
     // set audio to start of new page
@@ -70,6 +80,10 @@ function MyAlbum(props) {
       setAudioStreamIndex(currentPageFinished + 1);
     }
     setAutoPlay(true);
+  }
+
+  if (storyData === null) {
+    return null;
   }
 
   return (
