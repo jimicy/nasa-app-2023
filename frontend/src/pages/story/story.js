@@ -1,6 +1,5 @@
 import HTMLFlipBook from "react-pageflip";
 import React, { useState, useCallback, useRef } from "react";
-import TextToSpeech from "../../componenets/TextToSpeech";
 import "./story.css";
 
 const PageCover = React.forwardRef((props, ref) => {
@@ -25,22 +24,38 @@ const Page = React.forwardRef((props, ref) => {
 
 
 function MyAlbum(props) {
-  const [text, setText] = useState(props.story[0]);
   const book = useRef();
+  const [audioStreamIndex, setAudioStreamIndex] = useState(0)
+  const [autoPlay, setAutoPlay] = useState(false)
 
   const onFlip = useCallback((e) => {
     console.log('Current page: ' + e.data);
-    // if page is more than cover page
-    if (e.data > 0 && e.data + 1 < props.story.length) {
-      setText(props.story[e.data] + " " + props.story[e.data+1])
-    } else {
-      setText(props.story[e.data])
-    }
+    // set audio to start of new page
+    setAudioStreamIndex(e.data)
   });
 
+  function onPlay(e) {
+    setAutoPlay(true)
+  }
+
+  function onPause(e) {
+    setAutoPlay(false)
+  }
+
   function speakingDone(e) {
-    console.log(e)
-    book.current.pageFlip().flipNext()
+    var currentPageFinished = book.current.pageFlip().getCurrentPageIndex();
+    //page zero is cover so no page spread just flip over
+    if (currentPageFinished == 0) {
+      book.current.pageFlip().flipNext();
+      //if audio has gone ahead of shown pages then its time to flip
+    } else if (audioStreamIndex > currentPageFinished) {
+      book.current.pageFlip().flipNext()
+    } else if(currentPageFinished + 1 < props.story.length) {
+      // if page is not cover or back then there is page spread
+      // set audio stream to the spread page
+      setAudioStreamIndex(currentPageFinished + 1)
+    }
+    setAutoPlay(true)
   }
 
   return (
@@ -83,7 +98,11 @@ function MyAlbum(props) {
         <br></br>
         <br></br>
       </div>
-      <div className="formContainer"><TextToSpeech text={text} endHandler={speakingDone}/></div>
+      <div className="formContainer">
+        <audio controls src={props.audio[audioStreamIndex]} onEnded={speakingDone} onPlay={onPlay} onPause={onPause} autoPlay={autoPlay}>
+          Your browser does not support the audio element.
+        </audio>
+      </div>
     </body>
   );
 }
