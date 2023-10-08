@@ -58,8 +58,8 @@ function MyAlbum(props) {
 
   function speakingDone(e) {
     var currentPageFinished = book.current.pageFlip().getCurrentPageIndex();
-    //page zero is cover so no page spread just flip over
-    if (currentPageFinished == 0) {
+    //page zero is cover so no page spread just flip over or if book is in portrait mode as then there is no spread
+    if (currentPageFinished == 0 || book.current.pageFlip().getOrientation() === 'portrait') {
       flipForward();
       //if audio has gone ahead of shown pages then its time to flip
     } else if (audioStreamIndex > currentPageFinished) {

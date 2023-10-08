@@ -52,7 +52,7 @@ const repeat = useCallback(() => {
     <div className="audio-player">
       <div className="controls">
         <ProgressBar progressBarRef={progressBarRef} audioRef={audioRef} timeProgress={timeProgress} duration={duration}/>
-        <div style={{paddingLeft: "10px"}}> pages {readingIndex}/{total}</div>
+        <div style={{paddingLeft: "10px", minWidth: "fit-content"}}> pages {readingIndex}/{total}</div>
         <Controls prev={back} next={forward} onPlay={handlePlay} onPause={handlePause} playAnimationRef={playAnimationRef} skipBackward={handleSkipBackWard} skipForward={handleSkipForWard}/>
        </div>        
     </div>
