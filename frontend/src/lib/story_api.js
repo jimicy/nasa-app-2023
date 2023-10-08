@@ -57,7 +57,22 @@ export async function getStory(storyId) {
     .eq("story_id", storyId)
     .order("page_number"));
 
-  const storyPages = data;
+  const storyPages = [
+    {
+      id: "",
+      page_number: "",
+      title: story[0].title,
+      text: "",
+      story_page_image: [{ url: story[0].cover_image_url }],
+      story_page_audio: {
+        url: "https://audio-samples.github.io/samples/mp3/blizzard_tts_primed/prime/sample-0.mp3",
+      },
+    },
+    ...data.map((page) => {
+      page.story_page_audio = page.story_page_audio[0];
+      return page;
+    }),
+  ];
 
   if (error) {
     throw error;
@@ -69,10 +84,7 @@ export async function getStory(storyId) {
     description: story[0].description,
     language_code: story[0].language_code,
     cover_image_url: story[0].cover_image_url,
-    pages: storyPages.map((page) => {
-      page.story_page_audio = page.story_page_audio[0];
-      return page;
-    }),
+    pages: storyPages,
   };
 
   return result;
