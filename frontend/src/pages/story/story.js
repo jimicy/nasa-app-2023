@@ -7,7 +7,7 @@ import { getStory } from "../../lib/story_api";
 const PageCover = React.forwardRef((props, ref) => {
   return (
     <div className="cover" ref={ref} data-density="hard">
-      <div style={{backgroundImage: `url(${props.image})`, height: '100%', backgroundSize: 'cover', paddingTop: '1px'}}>
+      <div style={{backgroundImage: `url(${props.image.url})`, height: '100%', backgroundSize: 'cover', paddingTop: '1px'}}>
         <h2>{props.children}</h2>
       </div>
     </div>
@@ -77,7 +77,7 @@ function MyAlbum(props) {
       //if audio has gone ahead of shown pages then its time to flip
     } else if (audioStreamIndex > currentPageFinished) {
       flipForward();
-    } else if (currentPageFinished + 1 < props.story.length) {
+    } else if (currentPageFinished + 1 < storyData.pages.length) {
       // if page is not cover or back then there is page spread
       // set audio stream to the spread page
       setAudioStreamIndex(currentPageFinished + 1);
@@ -107,17 +107,20 @@ function MyAlbum(props) {
           className="album-web"
           ref={book}
         >
-          <PageCover image={storyData.cover_image_url}>{storyData.title}</PageCover>
           {storyData.pages.map(function (page, index) {
-
+            if(index === 0 ) {
+              return <PageCover image={page.story_page_image[0]}>{page.title}</PageCover>
+            }  
+            
+            else {
               return (
                 <Page number={index} image={page.story_page_image[0]}>
                   {page.text}
                 </Page>
               );
+            }
           
           })}
-          <PageCover/>
         </HTMLFlipBook>
         <br></br>
         <br></br>

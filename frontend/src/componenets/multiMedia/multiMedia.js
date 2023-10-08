@@ -14,6 +14,7 @@ const repeat = useCallback(() => {
     const currentTime = audioRef.current.currentTime;
     setTimeProgress(currentTime);
     progressBarRef.current.value = currentTime;
+    progressBarRef.current.max = audioRef.current.duration
     progressBarRef.current.style.setProperty(
         '--range-progress',
         `${(progressBarRef.current.value / duration) * 100}%`
@@ -22,8 +23,9 @@ const repeat = useCallback(() => {
     playAnimationRef.current = requestAnimationFrame(repeat);
     }, [audioRef, duration, progressBarRef, setTimeProgress]);
 
+    //if audio source duration is changed make sure progress bar is refreshed
     useEffect(() => {
-        progressBarRef.current.max = audioRef.current.duration
+       repeat()
     }, [duration]);
     
   const handlePlay = () => {
@@ -33,7 +35,7 @@ const repeat = useCallback(() => {
 
   const handlePause = () => {
     audioRef.current.pause()
-    cancelAnimationFrame(playAnimationRef.current);
+    playAnimationRef.current = requestAnimationFrame(repeat);
   }
 
   const handleSkipForWard = () => {
