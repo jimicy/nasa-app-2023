@@ -43,6 +43,10 @@ function MyAlbum(props) {
     setAudioStreamIndex(e.data);
   });
 
+  if (storyData === null) {
+    return null;
+  }
+
   function onPlay(e) {
     setAutoPlay(true);
   }
