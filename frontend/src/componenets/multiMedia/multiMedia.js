@@ -38,10 +38,12 @@ const repeat = useCallback(() => {
 
   const handleSkipForWard = () => {
     audioRef.current.currentTime += 5;
+    playAnimationRef.current = requestAnimationFrame(repeat);
   }
 
   const handleSkipBackWard = () => {
     audioRef.current.currentTime -= 5;
+    playAnimationRef.current = requestAnimationFrame(repeat);
   }
 
 
