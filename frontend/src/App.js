@@ -29,9 +29,7 @@ function App() {
       <Router>
             <Routes>
                 <Route path='/' element={<Home />} />
-                <Route path='/about' element={<MyAlbum 
-                story={["coverPage","page1", "page2", "page3", "page4", "backPage"]}
-                audio={["sample-0.mp3", "sample-1.mp3", "sample-2.mp3", "sample-3.mp3", "sample-4.mp3", "sample-5.mp3"]}/>} />
+                <Route path='/story' element={<MyAlbum/>} />
             </Routes>
       </Router>
   );

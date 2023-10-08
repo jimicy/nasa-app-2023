@@ -9,13 +9,17 @@
     grid-template-rows: 6px auto;
     position: fixed;
     bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .audio-player .controls {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    padding: 0 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
   }
   .audio-player .controls > * {
     display: flex;

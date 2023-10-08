@@ -1,8 +1,9 @@
 import HTMLFlipBook from "react-pageflip";
 import React, { useState, useCallback, useRef, useEffect } from "react";
-import MediaControls from "../../componenets/multiMedia/multiMedia";
+import MediaControls from "../../componenets/multiMedia/MultiMedia";
 import "./story.css";
 import { getStory } from "../../lib/story_api";
+import { useLocation } from 'react-router-dom';
 
 const PageCover = React.forwardRef((props, ref) => {
   return (
@@ -33,11 +34,12 @@ function MyAlbum(props) {
   const [audioStreamIndex, setAudioStreamIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(false);
   const [duration, setDuration] = useState(0);
-
+  const path = useLocation();
   const [storyData, setStoryData] = useState(null);
 
   useEffect(() => {
-    getStory(1).then((data) => {
+    const storyId = new URLSearchParams(path.search).get('book');
+    getStory(storyId).then((data) => {
       console.log(`useEffect storyData`, data);
       setStoryData(data);
     });
@@ -90,8 +92,8 @@ function MyAlbum(props) {
   }
 
   return (
-    <body style={{paddingTop: '20px'}}>
-      <div>
+    <div className="bookContainer">
+      <div style={{paddingTop:'20px'}}>
         <HTMLFlipBook
           width={550}
           height={650}
@@ -109,12 +111,12 @@ function MyAlbum(props) {
         >
           {storyData.pages.map(function (page, index) {
             if(index === 0 ) {
-              return <PageCover image={page.story_page_image[0]}>{page.title}</PageCover>
+              return <PageCover image={page.story_page_image[0]} key={index}>{page.title}</PageCover>
             }  
             
             else {
               return (
-                <Page number={index} image={page.story_page_image[0]}>
+                <Page number={index} image={page.story_page_image[0]} key={index}>
                   {page.text}
                 </Page>
               );
@@ -146,7 +148,7 @@ function MyAlbum(props) {
           total={storyData.pages.length - 1}
         ></MediaControls>
       </div>
-    </body>
+    </div>
   );
 }
 

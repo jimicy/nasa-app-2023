@@ -10,7 +10,7 @@ function Home() {
         </p>
         <a
           className="App-link"
-          href="/about"
+          href="/story?book=1"
           target="_blank"
           rel="noopener noreferrer"
         >

@@ -22,4 +22,9 @@
   text-align: center;
   background-color: rgb(185, 185, 184);
 }
+
+.bookContainer {
+  height: 100vh;
+  background-color: #282c34;
+}
   

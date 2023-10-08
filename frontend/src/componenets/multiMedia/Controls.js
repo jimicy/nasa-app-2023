@@ -26,7 +26,7 @@ const Controls = ({onPlay, onPause, skipForward, skipBackward, prev, next}) => {
 
   return (
     <div className="controls-wrapper">
-      <div className="controls">
+      <div className="buttons">
         <button onClick={prev} className='button'>
           <IoPlaySkipBackSharp color='#868686'/>
         </button>

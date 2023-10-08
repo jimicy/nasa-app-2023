@@ -1,7 +1,7 @@
 import React, { useRef, useState, useCallback, useEffect } from "react";
 import ProgressBar from "./ProgressBar";
 import Controls from "./Controls";
-import "./multiMedia.css";
+import "./MultiMedia.css";
 
 
 const MediaControls = ({ audioRef, duration, forward, back, readingIndex, total }) => {

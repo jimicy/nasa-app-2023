@@ -1,6 +1,8 @@
 .circle-button {
     height: 25px;
     width: 25px;
+    display: flex;
+    align-items: center;
     border-radius: 50%;
     border-width: 0px;
     cursor: pointer;
@@ -10,10 +12,16 @@
     }
   }
 
+.buttons {
+    display: flex;
+}
+
 .button {
     height: 25px;
     width: 25px;
     border-width: 0px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
     background-color: white;
 }
