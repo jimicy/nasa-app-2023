@@ -1,5 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  // https://stackoverflow.com/questions/72654538/tailwind-css-breaking-existing-styles
+  // Tailwind-Css implements Preflight by default in their projects which is an opinionated set of base styles.
+  corePlugins: {
+    preflight: false,
+  },
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {},

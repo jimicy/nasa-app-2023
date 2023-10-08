@@ -1,8 +1,9 @@
-.progress {
+.audio-progress {
   width: 100%;
   min-width: 100px;
   flex-grow: 1;
 }
+
 input[type="range"] {
     --range-progress: 0;
     

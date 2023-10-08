@@ -19,9 +19,14 @@ const ProgressBar = ({ progressBarRef, audioRef, timeProgress, duration }) => {
       };
 
     return (
-      <div className="progress">
+      <div className="audio-progress">
         <span className="time current">{formatTime(timeProgress)}</span>
-        <input type="range" ref={progressBarRef} defaultValue="0" onChange={handleProgressChange}/>
+        <input
+          type="range"
+          ref={progressBarRef}
+          defaultValue="0"
+          onChange={handleProgressChange}
+        />
         <span className="time">{formatTime(duration)}</span>
       </div>
     );
