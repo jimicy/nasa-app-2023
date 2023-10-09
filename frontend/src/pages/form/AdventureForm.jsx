@@ -1,6 +1,9 @@
-import { API_ADDRESS } from "../../lib/config";
+import { useState } from "react";
+import { API_ADDRESS, SupportedLanguages } from "../../lib/config";
 
 function AdventureForm() {
+  const [languageCode, setLanguageCode] = useState("en");
+
   const tooltip = {
     "Kepler-452b": `Kepler-452b is the first near-Earth-size world to be found in the habitable zone of star that is similar to our sun. Kepler-452b is the first planet orbiting a star about the same size and temperature as the sun.`,
     "Kepler-22b": `Kepler-22b is a super-Earth that could be covered in a super ocean. At 2.4 times Earth’s radius, it might even be gaseous. But theoretically an ocean world tipped on its side – a bit like our solar system’s ice giant, Uranus – turns out to be comfortably habitable based on recent computer modeling.`,
@@ -8,7 +11,7 @@ function AdventureForm() {
 
   const onSubmit = async () => {
     const requestBody = {
-      language_code: "en",
+      language_code: languageCode,
       exoplant: "Kepler-452b",
       character: {
         name: "John Doe",
@@ -52,7 +55,6 @@ function AdventureForm() {
           </div>
         </div>
       </dialog>
-      >>>>>>> ae672fe (Add form.)
       <div data-theme="dark" className="hero min-h-screen bg-base-200">
         <div className="hero-content text-center">
           <div className="max-w-xl">
@@ -71,9 +73,17 @@ function AdventureForm() {
                   <label className="label">
                     <span className="label-text">Language</span>
                   </label>
-                  <select className="select select-bordered w-full max-w-xs">
-                    <option>English</option>
-                    <option>Chinese</option>
+                  <select
+                    className="select select-bordered w-full max-w-xs"
+                    value={languageCode}
+                  >
+                    {SupportedLanguages.map((language, index) => {
+                      return (
+                        <option key={index} value={language.locale}>
+                          {language.language}
+                        </option>
+                      );
+                    })}
                   </select>
 
                   <label className="label">
