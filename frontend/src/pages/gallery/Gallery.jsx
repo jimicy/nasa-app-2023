@@ -1,7 +1,7 @@
 function Gallery() {
   return (
     <div data-theme="dark" className="hero min-h-screen bg-base-200">
-      <div className="hero text-center">
+      <div className="hero text-center" style={{ overflow: "scroll" }}>
         <div className="max-w-screen-2xl">
           <div className="carousel carousel-center rounded-box space-x-4">
             <div className="carousel-item w-80 card card-compact w-96 bg-base-100 shadow-xl">
