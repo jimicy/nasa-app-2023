@@ -1,5 +1,6 @@
 import React from "react";
 import "./home.css";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -28,12 +29,12 @@ function Home() {
             a new habitable exoplanet and adventure!
           </p>
           <div className="flex space-x-6 justify-center">
-            <a href="/create">
+            <Link to="/create">
               <button className="btn btn-primary">Get Started</button>
-            </a>
-            <a href="/gallery">
+            </Link>
+            <Link to="/gallery">
               <button className="btn btn-primary">Browse Gallery</button>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { API_ADDRESS, SupportedLanguages } from "../../lib/config";
+import { Link } from "react-router-dom";
 
 function AdventureForm() {
   const [languageCode, setLanguageCode] = useState("en");
   const [planet, setPlanet] = useState("Kepler-452b");
-  const [character, setCharacter] = useState({gender: "Male", race: "White", ethnicity: "Not Hispanic or Latino"});
+  const [character, setCharacter] = useState({
+    gender: "Male",
+    race: "White",
+    ethnicity: "Not Hispanic or Latino",
+  });
 
   const tooltip = {
     "Kepler-452b": `Kepler-452b is the first near-Earth-size world to be found in the habitable zone of star that is similar to our sun. Kepler-452b is the first planet orbiting a star about the same size and temperature as the sun.`,
@@ -16,29 +21,29 @@ function AdventureForm() {
   }
 
   function handleNameChange(e) {
-    console.log(character)
-    setCharacter({...character, name: e.target.value})
-    console.log(character)
+    console.log(character);
+    setCharacter({ ...character, name: e.target.value });
+    console.log(character);
   }
 
   function handleAgeChange(e) {
-    setCharacter({...character, age: e.target.value})
+    setCharacter({ ...character, age: e.target.value });
   }
 
   function handleGenderChange(e) {
-    setCharacter({...character, gender: e.target.value})
+    setCharacter({ ...character, gender: e.target.value });
   }
 
   function handleRaceChange(e) {
-    setCharacter({...character, race: e.target.value})
+    setCharacter({ ...character, race: e.target.value });
   }
 
   function handleEthnicChange(e) {
-    setCharacter({...character, ethnicity: e.target.value})
+    setCharacter({ ...character, ethnicity: e.target.value });
   }
 
   function handleBioChange(e) {
-    setCharacter({...character, bio: e.target.value})
+    setCharacter({ ...character, bio: e.target.value });
   }
 
   const onSubmit = async () => {
@@ -48,7 +53,11 @@ function AdventureForm() {
       character: character,
     };
 
-    if (character.name === undefined || character.age === undefined || character.bio === undefined) {
+    if (
+      character.name === undefined ||
+      character.age === undefined ||
+      character.bio === undefined
+    ) {
       // @ts-ignore
       document.getElementById("my_modal_2").showModal();
     } else {
@@ -74,15 +83,13 @@ function AdventureForm() {
       <dialog id="my_modal_2" className="modal">
         <div className="modal-box" data-theme="dark">
           <h3 className="font-bold text-lg">Keep writing!</h3>
-          <p className="py-4">
-            You must fill in all empty fields.
-          </p>
-          <p>
-            Your story awaits!
-          </p>
+          <p className="py-4">You must fill in all empty fields.</p>
+          <p>Your story awaits!</p>
           <div className="modal-action">
             {/* if there is a button in form, it will close the modal */}
-              <button className="btn" onClick={closeModal2}>Close</button>
+            <button className="btn" onClick={closeModal2}>
+              Close
+            </button>
           </div>
         </div>
       </dialog>
@@ -98,14 +105,14 @@ function AdventureForm() {
           </p>
           <div className="modal-action">
             {/* if there is a button in form, it will close the modal */}
-            <a href="/gallery">
+            <Link to="/gallery">
               <button className="btn">Go to Gallery</button>
-            </a>
+            </Link>
           </div>
         </div>
       </dialog>
       <div data-theme="dark" className="hero min-h-screen bg-base-200">
-        <div className="hero-content text-center" style={{marginTop: '60px'}}>
+        <div className="hero-content text-center" style={{ marginTop: "60px" }}>
           <div className="max-w-xl">
             <p className="py-6">
               <div className="card border">
@@ -126,8 +133,8 @@ function AdventureForm() {
                     className="select select-bordered w-full max-w-xs"
                     value={languageCode}
                     onChange={(e) => {
-                      console.log(e)
-                      setLanguageCode(e.target.value)
+                      console.log(e);
+                      setLanguageCode(e.target.value);
                     }}
                   >
                     {SupportedLanguages.map((language, index) => {
@@ -212,7 +219,10 @@ function AdventureForm() {
                   <label className="label">
                     <span className="label-text">Gender</span>
                   </label>
-                  <select className="select select-bordered w-full max-w-xs" onChange={handleGenderChange}>
+                  <select
+                    className="select select-bordered w-full max-w-xs"
+                    onChange={handleGenderChange}
+                  >
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Non-binary">Non-binary</option>
@@ -221,18 +231,30 @@ function AdventureForm() {
                   <label className="label">
                     <span className="label-text">Race</span>
                   </label>
-                  <select className="select select-bordered w-full max-w-xs" onChange={handleRaceChange}>
+                  <select
+                    className="select select-bordered w-full max-w-xs"
+                    onChange={handleRaceChange}
+                  >
                     <option value="White">White</option>
-                    <option value="Black or African American">Black or African American</option>
+                    <option value="Black or African American">
+                      Black or African American
+                    </option>
                     <option value="Asian">Asian</option>
-                    <option value="American Indian or Alaska Native">American Indian or Alaska Native</option>
-                    <option value="Native Hawaiian or Other Pacific Islander">Native Hawaiian or Other Pacific Islander</option>
+                    <option value="American Indian or Alaska Native">
+                      American Indian or Alaska Native
+                    </option>
+                    <option value="Native Hawaiian or Other Pacific Islander">
+                      Native Hawaiian or Other Pacific Islander
+                    </option>
                   </select>
 
                   <label className="label">
                     <span className="label-text">Ethnicity</span>
                   </label>
-                  <select className="select select-bordered w-full max-w-xs" onChange={handleEthnicChange}>
+                  <select
+                    className="select select-bordered w-full max-w-xs"
+                    onChange={handleEthnicChange}
+                  >
                     <option>Not Hispanic or Latino</option>
                     <option>Hispanic or Latino</option>
                   </select>
