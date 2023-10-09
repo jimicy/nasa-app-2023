@@ -1,4 +1,11 @@
+import React, { useState, useCallback, useRef, useEffect } from "react";
 function AdventureForm() {
+    const [input, setInput] = useState({});
+    function handleSubmit() {
+
+    }
+
+
     return (
       <div data-theme="dark" className="hero min-h-screen bg-base-200">
         <div className="hero-content text-center">

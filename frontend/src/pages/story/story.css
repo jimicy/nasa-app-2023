@@ -31,5 +31,6 @@
   background-color: #282c34;
   background:#000 url(stars.png) repeat top center;
   background-size: cover;
+  min-height: fit-content;
 }
   

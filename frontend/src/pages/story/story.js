@@ -96,18 +96,18 @@ function MyAlbum(props) {
     <div className="bookContainer">
       <div className="stars"></div>
       <div className="clouds"></div>
-      <div style={{paddingTop:'20px', paddingBottom: '20px'}}>
+      <div style={{padding: '100px 20px 60px', display: 'flex', justifyContent: 'center'}}>
         <HTMLFlipBook
           width={650}
           height={750}
-          minWidth={315}
-          maxWidth={1000}
-          minHeight={420}
-          maxHeight={1350}
+          minWidth={515}
+          maxWidth={800}
+          minHeight={620}
+          maxHeight={1150}
           showCover={true}
           onFlip={onFlip}
+          size="stretch"
           flippingTime={1000}
-          style={{ margin: "0 auto" }}
           maxShadowOpacity={0.5}
           className="album-web"
           ref={book}

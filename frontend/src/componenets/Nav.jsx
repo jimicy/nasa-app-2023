@@ -3,7 +3,7 @@ export function MainNav({ ...props }) {
     <div
       data-theme="dark"
       className="navbar bg-base-100"
-      style={{ position: "fixed", top: 0 }}
+      style={{ position: "fixed", top: 0, zIndex: 100}}
     >
       <div className="navbar-start">
         <a href="/" className="btn btn-ghost normal-case text-xl">
