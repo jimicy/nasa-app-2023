@@ -6,15 +6,19 @@ const supabaseKey =
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function getStories() {
-  const { data, error } = await supabase.from("story").select(
-    `
+  const { data, error } = await supabase
+    .from("story")
+    .select(
+      `
       id,
       title,
       description,
       language_code,
-      cover_image_url
+      cover_image_url,
+      cover_audio_url
   `
-  );
+    )
+    .eq("is_generated", true);
 
   if (error) {
     throw error;
@@ -32,7 +36,8 @@ export async function getStory(storyId) {
         title,
         description,
         language_code,
-        cover_image_url
+        cover_image_url,
+        cover_audio_url
     `
     )
     .eq("id", storyId);
@@ -65,7 +70,7 @@ export async function getStory(storyId) {
       text: "",
       story_page_image: [{ url: story[0].cover_image_url }],
       story_page_audio: {
-        url: "https://audio-samples.github.io/samples/mp3/blizzard_tts_primed/prime/sample-0.mp3",
+        url: story[0].cover_audio_url,
       },
     },
     ...data.map((page) => {
