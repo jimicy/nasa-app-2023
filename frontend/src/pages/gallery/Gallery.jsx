@@ -13,7 +13,7 @@ function Gallery() {
   
   return (
     <div data-theme="dark" className="hero min-h-screen bg-base-200">
-      <div className="hero text-center" style={{ overflow: "scroll" }}>
+      <div className="hero text-center" style={{ overflow: "auto" }}>
         <div className="max-w-screen-2xl">
           <div className="carousel carousel-center rounded-box space-x-4">
 
