@@ -20,8 +20,12 @@ function Home() {
             new habitable exoplanet and adventure!
           </p>
           <div className="flex space-x-6 justify-center">
-            <button className="btn btn-primary">Get Started</button>
-            <button className="btn btn-primary">Browse Gallery</button>
+            <a href="/create">
+              <button className="btn btn-primary">Get Started</button>
+            </a>
+            <a href="/gallery">
+              <button className="btn btn-primary">Browse Gallery</button>
+            </a>
           </div>
         </div>
       </div>
