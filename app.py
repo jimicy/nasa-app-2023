@@ -1,6 +1,6 @@
 import os
 from flask_cors import CORS
-from flask import Flask, current_app, jsonify
+from flask import Flask, current_app, jsonify, request
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
@@ -19,3 +19,9 @@ def index():
 @app.route('/api/test')
 def test():
   return jsonify({"message": "Hello World"})
+
+@app.route('/api/generate', methods=['POST'])
+def generate():
+  print("=====/api/generate called=====")
+  print(request.json)
+  return jsonify({"message": "success"})
