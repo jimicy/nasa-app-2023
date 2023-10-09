@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Young+Serif&display=swap');
 .album-web {
     text-align: center;
   }
@@ -13,6 +14,11 @@
     box-shadow: 0 1.5em 3em -1em rgb(70, 69, 69);
   }
 
+#page-cover-title {
+  font-size: 4em;
+  font-family: 'Young Serif', serif;
+  text-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
+}
 .pageNumber {
   border-radius: 50%;
   border-width: 1px;

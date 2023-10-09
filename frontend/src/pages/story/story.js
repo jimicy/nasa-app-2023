@@ -9,8 +9,20 @@ import "./stars.css";
 const PageCover = React.forwardRef((props, ref) => {
   return (
     <div className="cover" ref={ref} data-density="hard">
-      <div style={{backgroundImage: `url(${props.image.url})`, height: '100%', backgroundSize: 'cover', paddingTop: '1px'}}>
-        <h2 style={{color: "white", fontWeight: "bold", fontSize: "2em"}}>{props.children}</h2>
+      <div
+        style={{
+          backgroundImage: `url(${props.image.url})`,
+          height: "100%",
+          backgroundSize: "cover",
+          paddingTop: "1px",
+        }}
+      >
+        <h2
+          id="page-cover-title"
+          style={{ color: "white", fontWeight: "bold" }}
+        >
+          {props.children}
+        </h2>
       </div>
     </div>
   );
