@@ -19,7 +19,7 @@ const PageCover = React.forwardRef((props, ref) => {
 const Page = React.forwardRef((props, ref) => {
   return (
     <div className="page" ref={ref}>
-      <div style={{backgroundImage: `url(${props.image.url})`, height: '50%', backgroundSize: 'cover', paddingTop: '1px'}}>
+      <div style={{backgroundImage: `url(${props.image.url})`, height: '70%', backgroundSize: 'cover', paddingTop: '1px'}}>
         <div className="pageNumber" style={{float: props.number % 2 !== 0 ? 'float': 'right'}}>
           {props.number}
         </div>
@@ -98,7 +98,7 @@ function MyAlbum(props) {
       <div style={{padding: '100px 20px 60px', display: 'flex', justifyContent: 'center'}}>
         <HTMLFlipBook
           width={650}
-          height={750}
+          height={950}
           minWidth={515}
           maxWidth={800}
           minHeight={620}
