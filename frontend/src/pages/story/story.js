@@ -41,7 +41,6 @@ function MyAlbum(props) {
   useEffect(() => {
     const storyId = new URLSearchParams(path.search).get('book');
     getStory(storyId).then((data) => {
-      console.log(`useEffect storyData`, data);
       setStoryData(data);
     });
   }, []);
