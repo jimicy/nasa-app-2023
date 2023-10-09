@@ -76,6 +76,7 @@ function AdventureForm() {
                   <select
                     className="select select-bordered w-full max-w-xs"
                     value={languageCode}
+                    onChange={(e) => setLanguageCode(e.target.value)}
                   >
                     {SupportedLanguages.map((language, index) => {
                       return (
