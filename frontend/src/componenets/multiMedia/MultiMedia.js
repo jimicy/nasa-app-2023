@@ -18,13 +18,18 @@ const MediaControls = ({
   const repeat = useCallback(() => {
     const currentTime = audioRef.current.currentTime;
     setTimeProgress(currentTime);
+    // @ts-ignore
     progressBarRef.current.value = currentTime;
+    // @ts-ignore
     progressBarRef.current.max = audioRef.current.duration;
+    // @ts-ignore
     progressBarRef.current.style.setProperty(
       "--range-progress",
+      // @ts-ignore
       `${(progressBarRef.current.value / duration) * 100}%`
     );
 
+    // @ts-ignore
     playAnimationRef.current = requestAnimationFrame(repeat);
   }, [audioRef, duration, progressBarRef, setTimeProgress]);
 
@@ -33,23 +38,32 @@ const MediaControls = ({
     repeat();
   }, [duration]);
 
+  function clamp(min, max, value) {
+    return Math.min(Math.max(value, min), max);
+  };
+
   const handlePlay = () => {
     audioRef.current.play();
+    // @ts-ignore
     playAnimationRef.current = requestAnimationFrame(repeat);
   };
 
   const handlePause = () => {
     audioRef.current.pause();
+    // @ts-ignore
     playAnimationRef.current = requestAnimationFrame(repeat);
   };
 
   const handleSkipForWard = () => {
-    audioRef.current.currentTime += 5;
+    // make sure they can't skip past duration causes exceptions
+    audioRef.current.currentTime = clamp(0, audioRef.current.duration - 0.5, audioRef.current.currentTime + 5);;
+    // @ts-ignore
     playAnimationRef.current = requestAnimationFrame(repeat);
   };
 
   const handleSkipBackWard = () => {
     audioRef.current.currentTime -= 5;
+    // @ts-ignore
     playAnimationRef.current = requestAnimationFrame(repeat);
   };
 
@@ -77,7 +91,9 @@ const MediaControls = ({
           next={forward}
           onPlay={handlePlay}
           onPause={handlePause}
+          // @ts-ignore
           playAnimationRef={playAnimationRef}
+          audioRef={audioRef}
           skipBackward={handleSkipBackWard}
           skipForward={handleSkipForWard}
         />
