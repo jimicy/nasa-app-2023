@@ -3,7 +3,7 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import MediaControls from "../../componenets/multiMedia/MultiMedia";
 import "./story.css";
 import { getStory } from "../../lib/story_api";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import "./stars.css";
 
 const PageCover = React.forwardRef((props, ref) => {
@@ -31,12 +31,23 @@ const PageCover = React.forwardRef((props, ref) => {
 const Page = React.forwardRef((props, ref) => {
   return (
     <div className="page" ref={ref}>
-      <div style={{backgroundImage: `url(${props.image.url})`, height: '70%', backgroundSize: 'cover', paddingTop: '1px'}}>
-        <div className="pageNumber" style={{float: props.number % 2 !== 0 ? 'float': 'right'}}>
+      <div
+        style={{
+          backgroundImage: `url(${props.image.url})`,
+          height: "70%",
+          backgroundSize: "cover",
+          paddingTop: "1px",
+        }}
+      >
+        <div
+          className="pageNumber"
+          style={{ float: props.number % 2 !== 0 ? "float" : "right" }}
+        >
           {props.number}
         </div>
       </div>
-      <p style={{margin:'10px'}}>{props.children}</p>
+      {/* <p style={{margin:'10px'}}></p> */}
+      <p className="py-4 text-xl text-left m-9	justify-left">{props.children}</p>
     </div>
   );
 });
@@ -51,7 +62,7 @@ function MyAlbum(props) {
   const [storyData, setStoryData] = useState(null);
 
   useEffect(() => {
-    const storyId = new URLSearchParams(path.search).get('book');
+    const storyId = new URLSearchParams(path.search).get("book");
     getStory(storyId).then((data) => {
       setStoryData(data);
     });
@@ -86,7 +97,10 @@ function MyAlbum(props) {
   function speakingDone(e) {
     var currentPageFinished = book.current.pageFlip().getCurrentPageIndex();
     //page zero is cover so no page spread just flip over or if book is in portrait mode as then there is no spread
-    if (currentPageFinished == 0 || book.current.pageFlip().getOrientation() === 'portrait') {
+    if (
+      currentPageFinished == 0 ||
+      book.current.pageFlip().getOrientation() === "portrait"
+    ) {
       flipForward();
       //if audio has gone ahead of shown pages then its time to flip
     } else if (audioStreamIndex > currentPageFinished) {
@@ -107,7 +121,13 @@ function MyAlbum(props) {
     <div className="bookContainer">
       <div className="stars"></div>
       <div className="clouds"></div>
-      <div style={{padding: '100px 20px 60px', display: 'flex', justifyContent: 'center'}}>
+      <div
+        style={{
+          padding: "100px 20px 60px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <HTMLFlipBook
           width={650}
           height={950}
@@ -124,18 +144,23 @@ function MyAlbum(props) {
           ref={book}
         >
           {storyData.pages.map(function (page, index) {
-            if(index === 0 ) {
-              return <PageCover image={page.story_page_image[0]} key={index}>{page.title}</PageCover>
-            }  
-            
-            else {
+            if (index === 0) {
               return (
-                <Page number={index} image={page.story_page_image[0]} key={index}>
+                <PageCover image={page.story_page_image[0]} key={index}>
+                  {page.title}
+                </PageCover>
+              );
+            } else {
+              return (
+                <Page
+                  number={index}
+                  image={page.story_page_image[0]}
+                  key={index}
+                >
                   {page.text}
                 </Page>
               );
             }
-          
           })}
         </HTMLFlipBook>
         <br></br>
