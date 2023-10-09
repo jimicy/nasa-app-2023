@@ -100,9 +100,9 @@ function MyAlbum(props) {
           width={650}
           height={950}
           minWidth={515}
-          maxWidth={800}
+          maxWidth={700}
           minHeight={620}
-          maxHeight={1150}
+          maxHeight={1050}
           showCover={true}
           onFlip={onFlip}
           size="stretch"
